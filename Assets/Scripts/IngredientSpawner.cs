@@ -11,12 +11,16 @@ public class IngredientSpawner : MonoBehaviour
 
     // How much of the screen to keep clear on each side, in world units
     [SerializeField] float trashZoneWidth = 2.5f;
-    [SerializeField] float deliveryZoneWidth = 0f;
+    [SerializeField] float deliveryZoneWidth = 2.5f;
+
+    // How strongly gravity pulls on tagged ingredients and which tag to look for
+    [SerializeField] float fallGravity = 0.5f;
+    
 
     float timer;
     float minX, maxX, spawnY;
 
-    // Calculates the spawn range, skipping the trash and delivery zones
+    // Calculates the spawn range when the game starts
     void Start()
     {
         CalculateSpawnRange();
@@ -33,15 +37,20 @@ public class IngredientSpawner : MonoBehaviour
         }
     }
 
-    // Picks a random ingredient and drops it at a random X inside the allowed range
+    // Picks a random ingredient, drops it inside the allowed range, and sets how fast it falls
+        // Picks a random ingredient, drops it inside the allowed range, and sets how fast it falls
     void Spawn()
     {
         if (ingredientPrefabs.Length == 0) return;
 
         GameObject prefab = ingredientPrefabs[Random.Range(0, ingredientPrefabs.Length)];
         Vector2 position = new Vector2(Random.Range(minX, maxX), spawnY);
-        Instantiate(prefab, position, Quaternion.identity);
+        GameObject ingredient = Instantiate(prefab, position, Quaternion.identity);
+
+        Rigidbody2D rb = ingredient.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.gravityScale = fallGravity;
     }
+    
 
     // Finds the left and right spawn limits based on the camera and the zone widths
     void CalculateSpawnRange()
