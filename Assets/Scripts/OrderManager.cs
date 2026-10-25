@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Creates random burger orders and draws the current one on the ticket as an evenly spaced list of ingredients
+// Creates random burger orders, draws the current one on the ticket, and checks finished burgers against it
 public class OrderManager : MonoBehaviour
 {
     // Where the picture is drawn and the prefabs that provide each ingredient's sprite
@@ -12,7 +12,7 @@ public class OrderManager : MonoBehaviour
 
     // How much vertical space the ingredients can use and the largest gap allowed between them
     [SerializeField] float ticketHeight = 2.3f;
-    [SerializeField] float maxSpacing = 0.6f;
+    [SerializeField] float maxSpacing = 10f;
 
     // Which sorting order the picture starts at and how many fillings an order can have
     [SerializeField] int ticketSortingOrder = 21;
@@ -31,7 +31,7 @@ public class OrderManager : MonoBehaviour
     readonly List<IngredientType> currentOrder = new List<IngredientType>();
     readonly Dictionary<IngredientType, Ingredient> prefabLookup = new Dictionary<IngredientType, Ingredient>();
 
-    // Lets other scripts read the order, which burger checking will use next
+    // Lets other scripts read the current order
     public IReadOnlyList<IngredientType> CurrentOrder => currentOrder;
 
     // Matches each ingredient type to its prefab and creates the first order
@@ -68,6 +68,18 @@ public class OrderManager : MonoBehaviour
 
         currentOrder.Add(IngredientType.TopBun);
         DrawTicket();
+    }
+
+    // Checks whether a finished burger matches the current order exactly, layer by layer
+    public bool Matches(IReadOnlyList<Ingredient> layers)
+    {
+        if (layers.Count != currentOrder.Count) return false;
+
+        for (int i = 0; i < layers.Count; i++)
+        {
+            if (layers[i].Type != currentOrder[i]) return false;
+        }
+        return true;
     }
 
     // Clears the old picture and places each ingredient evenly spaced from the bottom up

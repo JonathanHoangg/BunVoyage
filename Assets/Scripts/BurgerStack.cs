@@ -16,8 +16,9 @@ public class BurgerStack : MonoBehaviour
     float stackTopY;
     bool isComplete;
 
-    // Lets other scripts check the burger, which the order ticket will use on Friday
+    // Lets the trash and delivery zones check the burger
     public bool IsComplete => isComplete;
+    public bool HasFillings => layers.Count > 1;
     public IReadOnlyList<Ingredient> Layers => layers;
 
     // Starts the first burger when the game begins
@@ -27,7 +28,6 @@ public class BurgerStack : MonoBehaviour
     }
 
     // Clears the plate and places a fresh bottom bun on it
-    // The trash and delivery zones will call this on Friday
     public void ResetStack()
     {
         foreach (Ingredient layer in layers)
@@ -45,7 +45,6 @@ public class BurgerStack : MonoBehaviour
     // Catches falling ingredients, or lets them fall through once the burger is finished
     void OnCollisionEnter2D(Collision2D collision)
     {
-
         Ingredient ingredient = collision.gameObject.GetComponent<Ingredient>();
         if (ingredient == null || ingredient.IsStacked) return;
 

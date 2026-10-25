@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Drops a random ingredient from above the screen at a steady interval
-// Ingredients never spawn above the trash zone on the left or the delivery zone on the right
+// Ingredients never spawn above the trash area on the left or the delivery area on the right
 public class IngredientSpawner : MonoBehaviour
 {
     // Ingredients to choose from and how often to drop them
@@ -13,9 +13,8 @@ public class IngredientSpawner : MonoBehaviour
     [SerializeField] float trashZoneWidth = 2.5f;
     [SerializeField] float deliveryZoneWidth = 2.5f;
 
-    // How strongly gravity pulls on tagged ingredients and which tag to look for
+    // How strongly gravity pulls on the ingredients
     [SerializeField] float fallGravity = 0.5f;
-    
 
     float timer;
     float minX, maxX, spawnY;
@@ -38,7 +37,6 @@ public class IngredientSpawner : MonoBehaviour
     }
 
     // Picks a random ingredient, drops it inside the allowed range, and sets how fast it falls
-        // Picks a random ingredient, drops it inside the allowed range, and sets how fast it falls
     void Spawn()
     {
         if (ingredientPrefabs.Length == 0) return;
@@ -50,21 +48,22 @@ public class IngredientSpawner : MonoBehaviour
         Rigidbody2D rb = ingredient.GetComponent<Rigidbody2D>();
         if (rb != null) rb.gravityScale = fallGravity;
     }
-    
 
-    // Finds the left and right spawn limits based on the camera and the zone widths
+    // Finds the left and right spawn limits from the screen edges and the zone widths
     void CalculateSpawnRange()
     {
         Camera cam = Camera.main;
         float halfHeight = cam.orthographicSize;
         float halfWidth = halfHeight * cam.aspect;
+        float leftEdge = cam.transform.position.x - halfWidth;
+        float rightEdge = cam.transform.position.x + halfWidth;
 
-        minX = cam.transform.position.x - halfWidth + edgePadding + trashZoneWidth;
-        maxX = cam.transform.position.x + halfWidth - edgePadding - deliveryZoneWidth;
+        minX = leftEdge + edgePadding + trashZoneWidth;
+        maxX = rightEdge - edgePadding - deliveryZoneWidth;
         spawnY = cam.transform.position.y + halfHeight + 1f;
     }
 
-    // Draws the spawn range as green lines in the Scene view so the zones are easy to tune
+    // Draws the spawn range as green lines in the Scene view so the zones are easy to check
     void OnDrawGizmosSelected()
     {
         if (Camera.main == null) return;
