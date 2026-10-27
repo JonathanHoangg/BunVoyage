@@ -34,6 +34,9 @@ public class OrderManager : MonoBehaviour
     // Lets other scripts read the current order
     public IReadOnlyList<IngredientType> CurrentOrder => currentOrder;
 
+    // Lets other scripts know when a new order starts, which brings in the next customer
+    public event System.Action OrderChanged;
+
     // Matches each ingredient type to its prefab and creates the first order
     void Start()
     {
@@ -53,7 +56,7 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    // Builds an order with a bottom bun, random fillings, and a top bun
+    // Builds an order with a bottom bun, random fillings, and a top bun, then tells other scripts about it
     public void NewOrder()
     {
         currentOrder.Clear();
@@ -68,6 +71,8 @@ public class OrderManager : MonoBehaviour
 
         currentOrder.Add(IngredientType.TopBun);
         DrawTicket();
+
+        OrderChanged?.Invoke();
     }
 
     // Checks whether a finished burger matches the current order exactly, layer by layer

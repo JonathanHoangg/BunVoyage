@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -90}
+  m_AnchoredPosition: {x: 232, y: -62}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &84401048
@@ -961,7 +961,7 @@ Transform:
   m_GameObject: {fileID: 1569147838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.946562, y: -3.342, z: 0}
+  m_LocalPosition: {x: -10.051351, y: -3.342, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1002,7 +1002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -125, y: -159.99994}
+  m_AnchoredPosition: {x: -125, y: -159.99997}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1656980955
@@ -1255,6 +1255,7 @@ GameObject:
   - component: {fileID: 1852800944}
   - component: {fileID: 1852800943}
   - component: {fileID: 1852800942}
+  - component: {fileID: 1852800945}
   m_Layer: 0
   m_Name: Delivery_counter_front
   m_TagString: Untagged
@@ -1277,7 +1278,7 @@ MonoBehaviour:
   burgerStack: {fileID: 1725315236}
   orderManager: {fileID: 1969293341}
   livesManager: {fileID: 1969293343}
-  scoreManager: {fileID: 0}
+  scoreManager: {fileID: 1969293344}
   zoneWidth: 3.5
 --- !u!212 &1852800943
 SpriteRenderer:
@@ -1326,7 +1327,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7898262458432405051, guid: 4128790523757a340993cc499937cbb2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1348,12 +1349,55 @@ Transform:
   m_GameObject: {fileID: 1852800941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.746562, y: -4.119898, z: 0}
+  m_LocalPosition: {x: 8.851351, y: -4.119898, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1852800945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852800941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c53025354593047a23cbede24b7879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CounterCustomer
+  orderManager: {fileID: 1969293341}
+  burgerStack: {fileID: 1725315236}
+  livesManager: {fileID: 1969293343}
+  customers:
+  - happy: {fileID: 9087446528648475151, guid: d57ea74967a7c8b4487c0c6f0d68b227, type: 3}
+    impatient: {fileID: 2338221608195050197, guid: 346aec6b3c60ae3469e70802a9cd201c, type: 3}
+    angry: {fileID: 8371790467217037787, guid: 88174bb8ef7bff54db6fc76e77ba1598, type: 3}
+  - happy: {fileID: -9143136929896488433, guid: 4f194d4df324e784d8d169b0ebe0d59e, type: 3}
+    impatient: {fileID: 5723989975570050882, guid: 7cbb6fd17564fc944b174b198ff40cfe, type: 3}
+    angry: {fileID: -1378869665681458177, guid: 69b2c7ffb4a330e4f9dd81786ad4a5a0, type: 3}
+  - happy: {fileID: -243930989332966424, guid: d8c6a74881d49a544a1af6e9bd4d4651, type: 3}
+    impatient: {fileID: 4409887486644756656, guid: 31b3985a3b9b5dc4daae2acdb89142a6, type: 3}
+    angry: {fileID: -48667151379439210, guid: 0da416c8bbeced645936ccff65ac9349, type: 3}
+  - happy: {fileID: 5771600646720116115, guid: 55a0930db4e94e04bacdcd6b4b0e6d38, type: 3}
+    impatient: {fileID: -4112701449630325032, guid: df3fccaa060711445865a3bd40964b8e, type: 3}
+    angry: {fileID: 3831788691221223888, guid: 92de397815de7bc46b22b2a7b4effc95, type: 3}
+  basePatience: 15
+  patiencePerFilling: 4
+  impatientAt: 0.5
+  angryAt: 0.8
+  customerAnchor: {x: 0.7, y: 0.7}
+  customerScale: 1
+  customerSortingOrder: -3
+  meterWidth: 2
+  meterHeight: 0.25
+  meterGap: 0.2
+  meterSortingOrder: 5
+  meterBackColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.8}
+  happyColor: {r: 0.35, g: 0.8, b: 0.35, a: 1}
+  impatientColor: {r: 1, g: 0.8, b: 0.2, a: 1}
+  angryColor: {r: 0.9, g: 0.25, b: 0.2, a: 1}
 --- !u!1 &1969293340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,7 +1579,7 @@ Transform:
   m_GameObject: {fileID: 1995149339}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.564002, y: 3.4487898, z: 0}
+  m_LocalPosition: {x: -9.668791, y: 3.4487898, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
