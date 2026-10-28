@@ -16,14 +16,19 @@ public class ScoreManager : MonoBehaviour
 
     int profit;
     int topProfit;
+    int topProfitAtStart;
 
     public int Profit => profit;
     public int TopProfit => topProfit;
+
+    // True when this run earned more than the best run before it
+    public bool BeatTopProfit => profit > topProfitAtStart;
 
     // Loads the saved top profit and shows both scores
     void Start()
     {
         topProfit = PlayerPrefs.GetInt(TopProfitKey, 0);
+        topProfitAtStart = topProfit;
         UpdateText();
     }
 

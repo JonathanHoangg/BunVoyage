@@ -15,6 +15,9 @@ public class LivesManager : MonoBehaviour
     public int Lives => lives;
     public bool IsOutOfLives => lives <= 0;
 
+    // Lets other scripts know when the last life is lost, which shows the results screen
+    public event System.Action OutOfLives;
+
     // Starts with one life for each star
     void Start()
     {
@@ -41,9 +44,8 @@ public class LivesManager : MonoBehaviour
 
         if (lives <= 0)
         {
-            // Placeholder until the results screen is added
-            Debug.Log("Out of lives. Run over.");
             Time.timeScale = 0f;
+            OutOfLives?.Invoke();
         }
     }
 

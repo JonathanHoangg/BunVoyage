@@ -56,7 +56,7 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    // Builds an order with a bottom bun, random fillings, and a top bun, then tells other scripts about it
+    // Builds an order with a bottom bun, random fillings with at least one patty, and a top bun
     public void NewOrder()
     {
         currentOrder.Clear();
@@ -67,6 +67,14 @@ public class OrderManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             currentOrder.Add(fillings[Random.Range(0, fillings.Length)]);
+        }
+
+        // Every burger needs a patty, so one random filling is swapped for a patty if none were picked
+        // The fillings sit from spot 1 to the end of the list, since spot 0 is the bottom bun
+        if (!currentOrder.Contains(IngredientType.Patty))
+        {
+            int swapSpot = Random.Range(1, currentOrder.Count);
+            currentOrder[swapSpot] = IngredientType.Patty;
         }
 
         currentOrder.Add(IngredientType.TopBun);
