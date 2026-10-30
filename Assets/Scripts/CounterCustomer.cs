@@ -1,12 +1,13 @@
 using UnityEngine;
 
-// One customer's look in each of their three moods
+// One customer's look in each of their three moods, plus the grunt they make when they get impatient
 [System.Serializable]
 public class CustomerLook
 {
     public Sprite happy;
     public Sprite impatient;
     public Sprite angry;
+    public AudioClip grunt;
 }
 
 // Shows a random customer behind the delivery counter with each new order and runs their impatience meter
@@ -19,6 +20,7 @@ public class CounterCustomer : MonoBehaviour
     [SerializeField] OrderManager orderManager;
     [SerializeField] BurgerStack burgerStack;
     [SerializeField] LivesManager livesManager;
+    [SerializeField] SoundManager soundManager;
 
     [Header("Customers")]
     [SerializeField] CustomerLook[] customers;
@@ -60,9 +62,9 @@ public class CounterCustomer : MonoBehaviour
     int lastIndex = -1;
     float patience;
     float waited;
+    bool hasGrunted;
 
     // How impatient the customer is, from 0 when they arrive to 1 when they storm off
-    // The music will use this later to speed up as the meter runs out
     public float Impatience => patience > 0f ? Mathf.Clamp01(waited / patience) : 0f;
 
     // Creates the customer and the meter as children of the counter
@@ -91,13 +93,19 @@ public class CounterCustomer : MonoBehaviour
         orderManager.OrderChanged -= NextCustomer;
     }
 
-    // Counts how long the customer has waited and sends them away if they run out of patience
+    // Counts how long the customer has waited, grunts once when they get impatient, and sends them away if they run out of patience
     void Update()
     {
         if (current == null || livesManager.IsOutOfLives) return;
 
         waited += Time.deltaTime;
         UpdateMood();
+
+        if (!hasGrunted && Impatience >= impatientAt)
+        {
+            hasGrunted = true;
+            if (soundManager != null) soundManager.PlayEffect(current.grunt);
+        }
 
         if (waited >= patience)
         {
@@ -136,7 +144,7 @@ public class CounterCustomer : MonoBehaviour
         meterFill.color = MoodColor();
     }
 
-    // Brings a new random customer to the counter with a full meter sized to their order
+    // Brings a new random customer to the counter with a full meter sized to their order and rings the bell
     void NextCustomer()
     {
         if (customers.Length == 0) return;
@@ -152,8 +160,11 @@ public class CounterCustomer : MonoBehaviour
         int fillings = orderManager.CurrentOrder.Count - 2;
         patience = basePatience + patiencePerFilling * fillings;
         waited = 0f;
+        hasGrunted = false;
 
         UpdateMood();
+
+        if (soundManager != null) soundManager.PlayCustomerDing();
     }
 
     // The customer leaves angry, which costs a life and brings the next customer

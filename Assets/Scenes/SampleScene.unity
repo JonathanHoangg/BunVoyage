@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashZone
   burgerStack: {fileID: 1725315236}
+  soundManager: {fileID: 1969293346}
   zoneWidth: 1.6
 --- !u!212 &1569147840
 SpriteRenderer:
@@ -1130,7 +1131,7 @@ Transform:
   m_GameObject: {fileID: 1569147838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.0648646, y: -3.342, z: 0}
+  m_LocalPosition: {x: -3.242328, y: -3.342, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1171,7 +1172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -124.99994, y: -160}
+  m_AnchoredPosition: {x: -124.99994, y: -159.99994}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1656980955
@@ -1518,7 +1519,7 @@ Transform:
   m_GameObject: {fileID: 1852800941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8648648, y: -4.119898, z: 0}
+  m_LocalPosition: {x: 2.042328, y: -4.119898, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1539,19 +1540,24 @@ MonoBehaviour:
   orderManager: {fileID: 1969293341}
   burgerStack: {fileID: 1725315236}
   livesManager: {fileID: 1969293343}
+  soundManager: {fileID: 1969293346}
   customers:
   - happy: {fileID: 9087446528648475151, guid: d57ea74967a7c8b4487c0c6f0d68b227, type: 3}
     impatient: {fileID: 2338221608195050197, guid: 346aec6b3c60ae3469e70802a9cd201c, type: 3}
     angry: {fileID: 8371790467217037787, guid: 88174bb8ef7bff54db6fc76e77ba1598, type: 3}
+    grunt: {fileID: 8300000, guid: ddabf714ed446dd4c920950c570f1256, type: 3}
   - happy: {fileID: -9143136929896488433, guid: 4f194d4df324e784d8d169b0ebe0d59e, type: 3}
     impatient: {fileID: 5723989975570050882, guid: 7cbb6fd17564fc944b174b198ff40cfe, type: 3}
     angry: {fileID: -1378869665681458177, guid: 69b2c7ffb4a330e4f9dd81786ad4a5a0, type: 3}
+    grunt: {fileID: 8300000, guid: 142aa8e749a426f4d9b9d6a38c5bdea1, type: 3}
   - happy: {fileID: -243930989332966424, guid: d8c6a74881d49a544a1af6e9bd4d4651, type: 3}
     impatient: {fileID: 4409887486644756656, guid: 31b3985a3b9b5dc4daae2acdb89142a6, type: 3}
     angry: {fileID: -48667151379439210, guid: 0da416c8bbeced645936ccff65ac9349, type: 3}
+    grunt: {fileID: 8300000, guid: fdb84247082f0de4dbb7c956c92a28b0, type: 3}
   - happy: {fileID: 5771600646720116115, guid: 55a0930db4e94e04bacdcd6b4b0e6d38, type: 3}
     impatient: {fileID: -4112701449630325032, guid: df3fccaa060711445865a3bd40964b8e, type: 3}
     angry: {fileID: 3831788691221223888, guid: 92de397815de7bc46b22b2a7b4effc95, type: 3}
+    grunt: {fileID: 8300000, guid: 142aa8e749a426f4d9b9d6a38c5bdea1, type: 3}
   basePatience: 15
   patiencePerFilling: 7
   impatientAt: 0.5
@@ -1580,6 +1586,7 @@ GameObject:
   - component: {fileID: 1969293343}
   - component: {fileID: 1969293344}
   - component: {fileID: 1969293345}
+  - component: {fileID: 1969293346}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1678,6 +1685,23 @@ MonoBehaviour:
   scoreManager: {fileID: 1969293344}
   resultsSceneName: ResultsMenu
   delay: 0.5
+--- !u!114 &1969293346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969293340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f149a090e3a7f934897cb2a6ce674636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  music: {fileID: 8300000, guid: d5fcb94cd0753024683d5909e17af0e4, type: 3}
+  musicVolume: 0.12
+  customerDing: {fileID: 8300000, guid: 2c1829c6f9cb7684685462308b4aa875, type: 3}
+  trashSound: {fileID: 8300000, guid: 57eb325fe96373c40b039c608e36915a, type: 3}
+  effectsVolume: 0.8
 --- !u!1 &1995149339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,7 +1789,7 @@ Transform:
   m_GameObject: {fileID: 1995149339}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6823046, y: 3.4487898, z: 0}
+  m_LocalPosition: {x: -2.8597677, y: 3.4487898, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

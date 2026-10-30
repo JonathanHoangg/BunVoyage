@@ -1,15 +1,16 @@
 using UnityEngine;
 
-// Clears the burger when the plate slides into the trash area
+// Clears the burger when the plate slides into the trash area and plays a trash sound
 // Always places itself in the bottom left corner of the screen
 [ExecuteAlways]
 public class TrashZone : MonoBehaviour
 {
-    // The burger on the plate and how wide the trash area is, in world units
+    // The burger on the plate, the sound player, and how wide the trash area is, in world units
     [SerializeField] BurgerStack burgerStack;
+    [SerializeField] SoundManager soundManager;
     [SerializeField] float zoneWidth = 2.5f;
 
-    // The line the plate has to cross, which the spawner also uses to stay clear of this area
+    // The line the plate has to cross
     public float RightEdge { get; private set; }
 
     SpriteRenderer sr;
@@ -35,6 +36,7 @@ public class TrashZone : MonoBehaviour
         if (plateX <= RightEdge && burgerStack.HasFillings)
         {
             burgerStack.ResetStack();
+            if (soundManager != null) soundManager.PlayTrash();
         }
     }
 
