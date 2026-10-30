@@ -80,5 +80,6 @@ The game has background music, a bell when a new customer shows up, a grunt when
 CREDITS
 
 Art: I ai generated the art with claude.ai
+
 Audio: pixabay.com
 
