@@ -55,13 +55,11 @@ public class DeliveryZone : MonoBehaviour
 
             // The fillings are every layer except the two buns
             int fillingCount = burgerStack.Layers.Count - 2;
-            int price = scoreManager.AddSale(fillingCount);
-            Debug.Log("Customer happy. Sold for $" + price);
+            scoreManager.AddSale(fillingCount);
         }
         else
         {
             livesManager.LoseLife();
-            Debug.Log("Wrong order. Lives left: " + livesManager.Lives);
         }
 
         burgerStack.ResetStack();

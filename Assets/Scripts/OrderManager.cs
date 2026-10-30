@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Creates random burger orders, draws the current one on the ticket, and checks finished burgers against it
 public class OrderManager : MonoBehaviour
@@ -45,15 +44,6 @@ public class OrderManager : MonoBehaviour
             if (prefab != null) prefabLookup[prefab.Type] = prefab;
         }
         NewOrder();
-    }
-
-    // Press N to make a new order while testing (remove before submitting)
-    void Update()
-    {
-        if (Keyboard.current != null && Keyboard.current.nKey.wasPressedThisFrame)
-        {
-            NewOrder();
-        }
     }
 
     // Builds an order with a bottom bun, random fillings with at least one patty, and a top bun

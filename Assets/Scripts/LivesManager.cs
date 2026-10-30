@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 // Tracks how many lives the player has left and shows them as stars in the corner
@@ -23,15 +22,6 @@ public class LivesManager : MonoBehaviour
     {
         lives = stars.Length;
         UpdateStars();
-    }
-
-    // Press L to lose a life while testing (remove before submitting)
-    void Update()
-    {
-        if (Keyboard.current != null && Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            LoseLife();
-        }
     }
 
     // Removes a life and ends the run when none are left
